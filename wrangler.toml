@@ -1,0 +1,17 @@
+name = "debloat-ai-scout"
+main = "worker/src/index.ts"
+compatibility_date = "2026-03-06"
+
+# KV namespace — replace ID after creating via CF dashboard
+[[kv_namespaces]]
+binding = "STATE"
+id = "YOUR_KV_NAMESPACE_ID"
+
+# R2 bucket
+[[r2_buckets]]
+binding = "ARTIFACTS"
+bucket_name = "debloat-scout-artifacts"
+
+[vars]
+GITHUB_REPO_OWNER = "investblog"
+GITHUB_REPO_NAME = "debloat"
