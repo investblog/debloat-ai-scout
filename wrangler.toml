@@ -5,7 +5,7 @@ compatibility_date = "2026-03-06"
 # KV namespace — replace ID after creating via CF dashboard
 [[kv_namespaces]]
 binding = "STATE"
-id = "YOUR_KV_NAMESPACE_ID"
+id = "de0c1b698042405092af81a2196ca9ae"
 
 # R2 bucket
 [[r2_buckets]]

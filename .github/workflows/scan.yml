@@ -1,0 +1,50 @@
+name: AI Scout Scan
+
+on:
+  schedule:
+    # Daily at 03:00 UTC
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+    inputs:
+      surfaces:
+        description: 'Surfaces to scan (comma-separated, or "all")'
+        required: false
+        default: 'all'
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      CLOUDFLARE_EMAIL: ${{ secrets.CF_EMAIL }}
+      CLOUDFLARE_API_KEY: ${{ secrets.CF_API_KEY }}
+      WORKER_URL: ${{ vars.WORKER_URL }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Run scan
+        run: npm run scan
+        env:
+          SCAN_SURFACES: ${{ inputs.surfaces || 'all' }}
+
+      # Artifacts as backup (R2 is primary)
+      - name: Upload scan artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scan-${{ github.run_id }}
+          path: artifacts/
+          retention-days: 7
