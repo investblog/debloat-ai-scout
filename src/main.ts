@@ -11,6 +11,7 @@ import { AI_KEYWORDS } from "@configs/keywords";
 import { loadSurfaces } from "@configs/surfaces";
 import { crawlAll, type CrawlResult } from "@/crawler";
 import { detectAndScore } from "@/detectors/heuristic";
+import { applyFilters } from "@/detectors/filters";
 import { filterActionable } from "@/scoring";
 import { composeIssue, createGitHubIssue, formatIssueBody } from "@/github/issues";
 
@@ -44,11 +45,12 @@ async function main() {
 		await writeFile(join(profileDir, "snapshot.json"), JSON.stringify(snapshot, null, 2));
 		await writeFile(join(profileDir, "full.png"), screenshotBuffer);
 
-		// 2. Detect & score
+		// 2. Detect & score → filter false positives
 		const scored = detectAndScore(candidates);
-		const actionable = filterActionable(scored);
+		const filtered = applyFilters(candidates, scored);
+		const actionable = filterActionable(filtered);
 		console.log(
-			`[scout] ${surface.name}: ${candidates.length} candidates, ${actionable.length} actionable`,
+			`[scout] ${surface.name}: ${candidates.length} candidates, ${scored.length - filtered.length} filtered, ${actionable.length} actionable`,
 		);
 
 		await writeFile(join(profileDir, "candidates.json"), JSON.stringify(scored, null, 2));
