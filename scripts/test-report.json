@@ -4,13 +4,14 @@
   "browser": "edge",
   "locale": "en-US",
   "extensionVersion": "1.0.2",
+  "installId": "e2e-test-uuid-0001",
   "viewport": { "width": 1440, "height": 900 },
   "hiddenCount": 3,
   "candidates": [
     {
       "html": "<div class=\"b_copilot_search\" id=\"b_copilot_container\"><h2>Copilot</h2><p>AI-generated answer about testing...</p><button>Ask Copilot</button></div>",
       "selector": "div#b_results > div#b_copilot_container",
-      "textContent": "Copilot AI-powered summary of your search results. Ask Copilot for more details.",
+      "textContent": "Copilot AI assistant: Get instant answers powered by AI. Try asking Copilot now.",
       "tagName": "DIV",
       "classes": ["b_copilot_search"],
       "role": "complementary",

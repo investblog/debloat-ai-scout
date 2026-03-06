@@ -123,6 +123,47 @@ export interface ExtensionReport {
 	candidates: CandidateBlock[];
 	/** How many elements the extension hid via CSS/DOM */
 	hiddenCount: number;
+	/** Anonymous installation ID (UUID, generated on first install) */
+	installId: string;
+}
+
+/** Notification payload — ready to show via chrome.notifications */
+export interface ScoutNotification {
+	title: string;
+	message: string;
+	context: string;
+	issueUrl?: string;
+}
+
+/** Report response from Worker to extension */
+export interface ReportResponse {
+	ok: boolean;
+	result: "issues_created" | "no_novel" | "all_filtered" | "no_candidates" | "deduped" | "issue_creation_failed" | "no_github_token" | "first_scan";
+	raw: number;
+	actionable: number;
+	novel: number;
+	issued: number;
+	isFirstScan: boolean;
+	issues: Array<{ number: number; url: string }>;
+	notification: ScoutNotification;
+	errors?: string[];
+}
+
+/** Per-installation stats stored in KV */
+export interface InstallStats {
+	reported: number;
+	issued: number;
+	lastReport: string;
+	firstReport: string;
+	surfaces: string[];
+}
+
+/** Weekly digest response */
+export interface DigestResponse {
+	period: { from: string; to: string };
+	you: { reported: number; issued: number };
+	global: { reported: number; issued: number; fixed: number };
+	notification: ScoutNotification;
 }
 
 /** Issue type */

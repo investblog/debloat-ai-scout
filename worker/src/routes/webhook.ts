@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { BASELINE_DENY_LABELS, BASELINE_REFRESH_LABELS } from "../../../configs/baselines";
 import { SUPPRESSION_TTL_MS } from "../../../configs/suppression";
 import type { Env } from "../index";
+import { getWeekKey } from "./report";
 
 export function webhookRoutes() {
 	const router = new Hono<{ Bindings: Env }>();
@@ -86,6 +87,17 @@ export function webhookRoutes() {
 					await c.env.STATE.put(stableKey, candidate);
 					await c.env.STATE.delete(candidateKey);
 				}
+			}
+
+			// Increment global weekly "fixed" counter
+			if (labels.includes("fixed") || allowRefresh) {
+				const weekKey = `week:${getWeekKey()}:global`;
+				const weekRaw = await c.env.STATE.get(weekKey);
+				const week = weekRaw
+					? JSON.parse(weekRaw) as { reported: number; issued: number; fixed: number }
+					: { reported: 0, issued: 0, fixed: 0 };
+				week.fixed++;
+				await c.env.STATE.put(weekKey, JSON.stringify(week), { expirationTtl: 14 * 24 * 60 * 60 });
 			}
 
 			return c.json({
