@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { CandidateBlock, ScoredCandidate } from "@/shared/types";
-import { applyFilters, filterOrganicResults, filterStructural } from "./filters";
+import { applyFilters, filterNestedCandidates, filterOrganicResults, filterStructural } from "./filters";
 
 function makeBlock(overrides: Partial<CandidateBlock> = {}): CandidateBlock {
 	return {
@@ -142,5 +142,36 @@ describe("applyFilters", () => {
 		const result = applyFilters(candidates, scored);
 		expect(result).toHaveLength(1);
 		expect(result[0]!.block.selector).toContain("copilot");
+	});
+});
+
+describe("filterNestedCandidates", () => {
+	it("removes child when parent is present", () => {
+		const parent = makeBlock({ selector: "div#copilot" });
+		const child = makeBlock({ selector: "div#copilot > div.inner" });
+		const result = filterNestedCandidates([
+			makeScored(parent),
+			makeScored(child),
+		]);
+		expect(result).toHaveLength(1);
+		expect(result[0]!.block.selector).toBe("div#copilot");
+	});
+
+	it("keeps siblings", () => {
+		const a = makeBlock({ selector: "div#copilot" });
+		const b = makeBlock({ selector: "div#composer" });
+		const result = filterNestedCandidates([
+			makeScored(a),
+			makeScored(b),
+		]);
+		expect(result).toHaveLength(2);
+	});
+
+	it("keeps all when none are nested", () => {
+		const result = filterNestedCandidates([
+			makeScored(makeBlock({ selector: "div.a" })),
+			makeScored(makeBlock({ selector: "section.b" })),
+		]);
+		expect(result).toHaveLength(2);
 	});
 });

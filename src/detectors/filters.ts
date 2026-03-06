@@ -9,12 +9,21 @@ import type { CandidateBlock, ScoredCandidate } from "@/shared/types";
  * both `#id_h` and `div#id_h` forms.
  */
 const STRUCTURAL_IDS = [
+	// Bing
 	"#b_header",
 	"#b_footer",
 	"#b_content",
 	"#b_context",
 	"#id_h",
 	"#rh_rwm",
+	// Google
+	"#main",
+	"#cnt",
+	"#rcnt",
+	"#rso",
+	"#botstuff",
+	"#search",
+	// Common
 	"#recaptcha",
 ] as const;
 
@@ -70,9 +79,11 @@ export function filterOrganicResults(scored: ScoredCandidate[]): ScoredCandidate
 		const sel = c.block.selector.toLowerCase();
 		const isOrganic =
 			sel.includes("b_algo") ||
+			sel.includes("b_results > li") ||
 			sel.includes(".g ") ||
-			sel.includes(".result") ||
-			sel.includes("b_results > li");
+			sel.includes(".mnr-c") ||
+			sel.includes(".hlcw0c") ||
+			sel.includes(".mJxzWe");
 
 		if (!isOrganic) return true;
 
@@ -86,7 +97,30 @@ export function filterOrganicResults(scored: ScoredCandidate[]): ScoredCandidate
 }
 
 /**
- * Full filter pipeline: structural → organic → return cleaned list.
+ * Remove child candidates when a parent candidate is already in the list.
+ * If div#copilot is a candidate, div#copilot > div.inner should not also be one.
+ */
+export function filterNestedCandidates(scored: ScoredCandidate[]): ScoredCandidate[] {
+	// Sort by selector length (shorter = higher in DOM)
+	const sorted = [...scored].sort(
+		(a, b) => a.block.selector.length - b.block.selector.length,
+	);
+	const kept: ScoredCandidate[] = [];
+
+	for (const candidate of sorted) {
+		const isChildOfKept = kept.some((parent) =>
+			candidate.block.selector.startsWith(parent.block.selector + " >"),
+		);
+		if (!isChildOfKept) {
+			kept.push(candidate);
+		}
+	}
+
+	return kept;
+}
+
+/**
+ * Full filter pipeline: structural → organic → nested → return cleaned list.
  */
 export function applyFilters(
 	candidates: CandidateBlock[],
@@ -101,5 +135,8 @@ export function applyFilters(
 	const afterStructural = scored.filter((s) => structurallyValid.has(s.block.selector));
 
 	// Step 3: filter organic results
-	return filterOrganicResults(afterStructural);
+	const afterOrganic = filterOrganicResults(afterStructural);
+
+	// Step 4: remove nested children (keep topmost candidate per subtree)
+	return filterNestedCandidates(afterOrganic);
 }
