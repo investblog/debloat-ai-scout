@@ -1,8 +1,13 @@
 name = "debloat-ai-scout"
 main = "worker/src/index.ts"
 compatibility_date = "2026-03-06"
+workers_dev = true
 
-# KV namespace — replace ID after creating via CF dashboard
+routes = [
+  { pattern = "scout.debloat.click/*", zone_name = "debloat.click" }
+]
+
+# KV namespace
 [[kv_namespaces]]
 binding = "STATE"
 id = "de0c1b698042405092af81a2196ca9ae"
