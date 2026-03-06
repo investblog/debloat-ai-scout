@@ -30,10 +30,10 @@ export async function crawlSurface(
 		}
 
 		console.log(`  [crawl] Navigating to ${url}`);
-		await page.goto(url, { waitUntil: "networkidle", timeout: 30_000 });
+		await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
-		// Extra wait for dynamic content
-		await page.waitForTimeout(2000);
+		// Extra wait for dynamic content to render
+		await page.waitForTimeout(5000);
 
 		console.log(`  [crawl] Extracting snapshot...`);
 		const reducedHtml = await extractSnapshot(page);
@@ -79,6 +79,11 @@ export async function crawlAll(
 		});
 
 		for (const surface of surfaces) {
+			if (surface.requiresBrowser) {
+				console.log(`[scout] Skipping ${surface.name} (requires native ${surface.browser} browser)`);
+				continue;
+			}
+
 			console.log(`[scout] Crawling: ${surface.name} (${surface.browser}/${surface.locale})`);
 
 			const context = await browser.newContext({

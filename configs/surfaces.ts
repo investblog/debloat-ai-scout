@@ -19,6 +19,8 @@ export interface SurfaceConfig {
 	priority: 1 | 2 | 3;
 	/** CSS selectors for known AI zones to check */
 	knownZones?: string[];
+	/** Requires specific browser engine (can't run in generic Chromium) */
+	requiresBrowser?: boolean;
 }
 
 /** P1 surfaces for MVP */
@@ -54,6 +56,7 @@ const P1_SURFACES: SurfaceConfig[] = [
 		viewport: { width: 1440, height: 900 },
 		priority: 1,
 		knownZones: [],
+		requiresBrowser: true,
 	},
 	{
 		id: "firefox-home",
@@ -64,6 +67,7 @@ const P1_SURFACES: SurfaceConfig[] = [
 		viewport: { width: 1440, height: 900 },
 		priority: 1,
 		knownZones: [],
+		requiresBrowser: true,
 	},
 ];
 

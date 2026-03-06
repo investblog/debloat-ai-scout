@@ -36,7 +36,8 @@ async function main() {
 	for (const result of results) {
 		const { surface, snapshot, candidates, screenshotBuffer } = result;
 		const profileKey = `${surface.id}:${surface.browser}:${surface.locale}`;
-		const profileDir = join(artifactsDir, profileKey);
+		const profileDirName = `${surface.id}_${surface.browser}_${surface.locale}`;
+		const profileDir = join(artifactsDir, profileDirName);
 		await mkdir(profileDir, { recursive: true });
 
 		// Save snapshot & screenshot locally
