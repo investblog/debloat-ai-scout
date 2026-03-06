@@ -105,6 +105,26 @@ export interface FeedbackEntry {
 	expiresAt: string | null;
 }
 
+/** Report sent by the Debloat extension (opt-in telemetry) */
+export interface ExtensionReport {
+	/** Surface identifier (e.g. "google-search", "bing-search") */
+	surface: string;
+	/** Page URL (normalized, no PII) */
+	pageUrl: string;
+	/** Browser the extension runs in */
+	browser: BrowserTarget;
+	/** Navigator language */
+	locale: string;
+	/** Extension version */
+	extensionVersion: string;
+	/** Viewport dimensions */
+	viewport: { width: number; height: number };
+	/** Raw candidate blocks extracted from the page */
+	candidates: CandidateBlock[];
+	/** How many elements the extension hid via CSS/DOM */
+	hiddenCount: number;
+}
+
 /** Issue type */
 export type IssueType =
 	| "new_ai_surface"

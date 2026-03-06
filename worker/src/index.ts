@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 import { baselineRoutes } from "./routes/baseline";
 import { dedupRoutes } from "./routes/dedup";
 import { scanRoutes } from "./routes/scan";
+import { reportRoutes } from "./routes/report";
 import { webhookRoutes } from "./routes/webhook";
 
 export interface Env {
@@ -22,6 +23,7 @@ app.get("/", (c) => c.json({ service: "debloat-ai-scout", status: "ok" }));
 app.route("/baseline", baselineRoutes());
 app.route("/scan", scanRoutes());
 app.route("/dedup", dedupRoutes());
+app.route("/scout/report", reportRoutes());
 app.route("/webhook", webhookRoutes());
 
 export default app;

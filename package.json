@@ -5,7 +5,8 @@
   "type": "module",
   "description": "Automated detection of new AI insertions for Debloat browser extension",
   "scripts": {
-    "scan": "tsx src/main.ts",
+    "scan": "node --env-file=.env node_modules/tsx/dist/cli.mjs src/main.ts",
+    "scan:dry": "tsx src/main.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "biome check .",

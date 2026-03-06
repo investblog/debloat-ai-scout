@@ -1,0 +1,25 @@
+{
+  "surface": "bing-search",
+  "pageUrl": "https://www.bing.com/search?q=test",
+  "browser": "edge",
+  "locale": "en-US",
+  "extensionVersion": "1.0.2",
+  "viewport": { "width": 1440, "height": 900 },
+  "hiddenCount": 3,
+  "candidates": [
+    {
+      "html": "<div class=\"b_copilot_search\" id=\"b_copilot_container\"><h2>Copilot</h2><p>AI-generated answer about testing...</p><button>Ask Copilot</button></div>",
+      "selector": "div#b_results > div#b_copilot_container",
+      "textContent": "Copilot AI-powered summary of your search results. Ask Copilot for more details.",
+      "tagName": "DIV",
+      "classes": ["b_copilot_search"],
+      "role": "complementary",
+      "ariaLabel": "Copilot answer",
+      "depth": 4,
+      "parentTag": "DIV",
+      "siblingCount": 5,
+      "boundingBox": { "x": 100, "y": 180, "width": 600, "height": 350 },
+      "inShadowDom": false
+    }
+  ]
+}

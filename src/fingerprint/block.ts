@@ -1,5 +1,5 @@
-import { createHash } from "node:crypto";
 import type { CandidateBlock } from "@/shared/types";
+import { hashString } from "./hash";
 
 /**
  * Compute a stable block fingerprint from a candidate element.
@@ -49,7 +49,3 @@ function trimText(text: string, maxLen: number): string {
 	return text.replace(/\s+/g, " ").trim().slice(0, maxLen);
 }
 
-/** SHA-256 hash, truncated to 16 hex chars for readability */
-function hashString(input: string): string {
-	return createHash("sha256").update(input).digest("hex").slice(0, 16);
-}

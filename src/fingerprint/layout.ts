@@ -1,5 +1,5 @@
-import { createHash } from "node:crypto";
 import type { CandidateBlock } from "@/shared/types";
+import { hashString } from "./hash";
 
 /**
  * Compute a layout fingerprint for a candidate element.
@@ -36,6 +36,3 @@ function classifyZone(block: CandidateBlock): string {
 	return "bottom";
 }
 
-function hashString(input: string): string {
-	return createHash("sha256").update(input).digest("hex").slice(0, 16);
-}

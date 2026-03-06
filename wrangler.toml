@@ -12,6 +12,10 @@ id = "de0c1b698042405092af81a2196ca9ae"
 binding = "ARTIFACTS"
 bucket_name = "debloat-scout-artifacts"
 
+[alias]
+"@" = "src"
+"@configs" = "configs"
+
 [vars]
 GITHUB_REPO_OWNER = "investblog"
 GITHUB_REPO_NAME = "debloat"
