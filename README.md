@@ -34,9 +34,8 @@ npm run watch       # fetch + diff; prints the report, opens an issue only with 
 ```
 
 The workflow `.github/workflows/watch.yml` runs every Monday 03:00 UTC (and on demand), opens
-the issue in this repository and commits changed snapshots. If nothing changed for ~45 days it
-commits `snapshots/.heartbeat`, because GitHub disables scheduled workflows after 60 days
-without repository activity.
+the issue in this repository and commits changed snapshots. GitHub disables scheduled workflows
+after 60 days without repository activity — if that happens, re-enable it in the Actions tab.
 
 ## History
 
