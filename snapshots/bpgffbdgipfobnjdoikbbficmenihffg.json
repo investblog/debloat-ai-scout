@@ -1,0 +1,17 @@
+{
+	"id": "bpgffbdgipfobnjdoikbbficmenihffg",
+	"fetchedAt": "2026-11-23T17:36:07.549Z",
+	"name": "No AI Search",
+	"version": "1.2.2",
+	"tokens": [
+		"[aria-label=\"AI Overview\"]",
+		"[data-attrid=\"AIOverview\"]",
+		"[role=\"heading\"]",
+		"[role=\"link\"]",
+		"[role=\"tab\"]",
+		"udm=14",
+		"udm=2",
+		"udm=28",
+		"udm=50"
+	]
+}

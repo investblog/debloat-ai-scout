@@ -1,0 +1,11 @@
+{
+	"id": "inhojdjgfnnpphfknlfbejchnjjnkpfl",
+	"fetchedAt": "2026-11-23T17:36:08.029Z",
+	"name": "Hide Google AI-Overviews",
+	"version": "1.7",
+	"tokens": [
+		"[class*=\"AIOverview\"]",
+		"[data-content-feature=\"ai_overview\"]",
+		"[jsname=\"yXgmRe\"]"
+	]
+}

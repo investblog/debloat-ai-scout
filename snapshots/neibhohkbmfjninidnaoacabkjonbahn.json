@@ -1,0 +1,22 @@
+{
+	"id": "neibhohkbmfjninidnaoacabkjonbahn",
+	"fetchedAt": "2026-11-23T17:36:04.691Z",
+	"name": "Hide Google AI Overviews",
+	"version": "1.7.2",
+	"tokens": [
+		"#center_col",
+		"#rso",
+		"#search",
+		"[data-async-type=\"folsrch\"]",
+		"[data-attrid^=\"lab/cluster/content/\"]",
+		"[data-attrid^=\"lab/cluster/title/\"]",
+		"[data-attrid^=\"lab/content/\"]",
+		"[data-attrid^=\"lab/title/\"]",
+		"[id^=\"folsrch\"]",
+		"[role=\"heading\"]",
+		"[role=\"list\"]",
+		"[role=\"listitem\"]",
+		"[role=\"main\"]",
+		"udm=50"
+	]
+}

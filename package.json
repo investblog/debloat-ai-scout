@@ -1,29 +1,21 @@
 {
-  "name": "debloat-ai-scout",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "description": "Automated detection of new AI insertions for Debloat browser extension",
-  "scripts": {
-    "scan": "node --env-file=.env node_modules/tsx/dist/cli.mjs src/main.ts",
-    "scan:dry": "tsx src/main.ts",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "lint": "biome check .",
-    "lint:fix": "biome check --fix .",
-    "check": "tsc --noEmit && biome check . && vitest run",
-    "worker:dev": "wrangler dev worker/src/index.ts",
-    "worker:deploy": "wrangler deploy worker/src/index.ts"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.0.0",
-    "@cloudflare/workers-types": "^4.20260101.0",
-    "typescript": "^5.7.0",
-    "vitest": "^4.0.0",
-    "tsx": "^4.19.0"
-  },
-  "dependencies": {
-    "hono": "^4.7.0",
-    "playwright": "^1.50.0"
-  }
+	"name": "debloat-ai-scout",
+	"version": "0.2.0",
+	"private": true,
+	"type": "module",
+	"description": "Weekly watch of competitor extensions' Google SERP selectors for Debloat",
+	"scripts": {
+		"watch": "tsx src/watch/main.ts",
+		"test": "vitest run",
+		"lint": "biome check .",
+		"lint:fix": "biome check --fix .",
+		"check": "tsc --noEmit && biome check . && vitest run"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.0.0",
+		"@types/node": "^22.0.0",
+		"typescript": "^5.7.0",
+		"vitest": "^4.0.0",
+		"tsx": "^4.19.0"
+	}
 }
