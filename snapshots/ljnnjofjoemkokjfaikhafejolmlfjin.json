@@ -1,0 +1,18 @@
+{
+	"id": "ljnnjofjoemkokjfaikhafejolmlfjin",
+	"fetchedAt": "2026-11-23T17:44:10.291Z",
+	"name": "AiHide",
+	"version": "1.1.0",
+	"tokens": [
+		"#B2Jtyd",
+		"#Odp5De",
+		"#center_col",
+		"#dEwkXc",
+		"#m-x-content",
+		"[data-aihide-collapsed=\"1\"]",
+		"[data-aihide-kind=\"${options.kind}\"]",
+		"[data-aihide-managed=\"1\"]",
+		"[data-subtree=\"mfc\"]",
+		"[role=\"heading\"]"
+	]
+}

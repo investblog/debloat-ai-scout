@@ -1,0 +1,11 @@
+{
+	"id": "aaafgcgohpoahgdhhgkpodjfekjgbfln",
+	"fetchedAt": "2026-11-23T17:44:12.083Z",
+	"name": "Google AI Overview Hider",
+	"version": "3.0.0",
+	"tokens": [
+		"[data-attrid=\"title\"]",
+		"[jscontroller=\"qTdDb\"]",
+		"[role=\"heading\"]"
+	]
+}
